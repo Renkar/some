@@ -31,3 +31,11 @@ const preUserTestFailure = (args: PreUserInput) =>  it (`PreUser creation with b
     expect(error).to.be.a('error')
     expect(/245/.test(error.message)).to.be.true
 })
+
+
+
+const falseEmails = ['1', '2', '3']
+
+const huita = (message, arrayParams) => {
+
+}
