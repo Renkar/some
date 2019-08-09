@@ -1,0 +1,33 @@
+import { expect } from 'chai'
+import { itParam} from 'mocha-param'
+
+
+import { ApolloClientBuilder } from '../utils'
+import { preUserMutation, referanceValue, PreUserInput } from './mutations'
+
+const walletUrl = 'https://api.wallet.dev.dao.casino'
+const OPEN_KEY = 'EOS8E6uTDfALrgcEqeZe6Vp7tAowAbMhXfi7ixPa6gUhz5UtnxjMx'
+const builder = new ApolloClientBuilder(walletUrl)
+const EMAIL = 'some_email@mail.com'
+
+const client = builder.build('/api')
+
+
+const preUserTestSuccess  = (args: PreUserInput) =>  it (`PreUser creation: ${args.email}`,async () => {
+    const options = preUserMutation(args, 'email is_email_confirm')
+    const queryResult = await client.mutate(options)
+    expect(queryResult.data.create_preuser).to.deep.equal(referanceValue(args.email))
+})
+
+const preUserTestFailure = (args: PreUserInput) =>  it (`PreUser creation with bad: ${args.email}`,async () => {
+    const options = preUserMutation(args, 'email is_email_confirm')
+    let error
+    try {
+        await client.mutate(options)
+    } catch(e) {
+        error = e
+    }
+    console.log(error.message) // Network error: Response not successful: Received status code 500
+    expect(error).to.be.a('error')
+    expect(/245/.test(error.message)).to.be.true
+})
