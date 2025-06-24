@@ -22,6 +22,7 @@ class HealthDataStore: ObservableObject {
             HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!
         ]
         healthStore.requestAuthorization(toShare: [], read: types) { success, error in
+
             if !success {
                 print("Authorization failed")
             }
@@ -86,4 +87,5 @@ class HealthDataStore: ObservableObject {
         healthStore.execute(energyQuery)
         healthStore.execute(distanceQuery)
     }
+=======
 }

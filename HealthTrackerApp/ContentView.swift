@@ -40,11 +40,31 @@ struct ContentView: View {
                 LinearGradient(colors: [Color.purple.opacity(0.3), Color.blue.opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing)
                     .ignoresSafeArea()
             )
+            VStack {
+                if store.dataPoints.isEmpty {
+                    Text("No data yet").padding()
+                } else {
+                    Chart(store.dataPoints) { point in
+                        LineMark(
+                            x: .value("Date", point.date),
+                            y: .value("Steps", point.value)
+                        )
+                    }
+                    .chartXAxis {
+                        AxisMarks(values: .stride(by: .day))
+                    }
+                    .frame(height: 200)
+                }
+            }
+            .navigationTitle("Health Summary")
+
         }
         .onAppear {
             store.requestAuthorization()
             store.fetchSteps()
             store.fetchSummary()
+
+
         }
     }
 }
@@ -54,6 +74,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
 
 struct SummaryCard: View {
     let title: String
