@@ -1,11 +1,20 @@
 # HealthTrackerApp
 
+
+This repository contains a simple SwiftUI example that reads HealthKit data and presents it with a polished SwiftUI design. The app requests HealthKit authorization, aggregates the last seven days of data, and displays summary cards and a line chart using the Charts framework.
+
+## Structure
+- **HealthTrackerApp.swift** – Entry point for the app.
+- **ContentView.swift** – SwiftUI view that shows summary cards and a line chart.
+- **HealthDataStore.swift** – Helper class for HealthKit requests and aggregation.
+
 This repository contains a simple SwiftUI example that reads step counts from HealthKit and shows them in a chart. It demonstrates requesting HealthKit authorization, fetching the last seven days of steps, and displaying the data using the Charts framework.
 
 ## Structure
 - **HealthTrackerApp.swift** – Entry point for the app.
 - **ContentView.swift** – SwiftUI view that shows a graph of steps.
 - **HealthDataStore.swift** – Helper class for HealthKit requests.
+
 - **README.md** – Documentation for the example.
 
 ## Building
